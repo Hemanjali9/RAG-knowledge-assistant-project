@@ -10,7 +10,7 @@ from llama_index.core import (
     Settings
 )
 
-from llama_index.core.node_parser import SentenceSplitter
+from chunking_utils import create_text_splitter
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.vector_stores.chroma import ChromaVectorStore
 
@@ -36,12 +36,10 @@ print("2. Configuring SentenceSplitter...")
 
 tokenizer = tiktoken.get_encoding("cl100k_base").encode
 
-splitter = SentenceSplitter(
+splitter = create_text_splitter(
     chunk_size=1200,
-    chunk_overlap=250,
-    tokenizer=tokenizer
+    chunk_overlap=250
 )
-
 Settings.node_parser = splitter
 
 

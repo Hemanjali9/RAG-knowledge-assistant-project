@@ -1,6 +1,7 @@
-
+import os
 from streamlit.testing.v1 import AppTest
 
+os.environ["RAG_TEST_MODE"] = "1"
 
 def test_app_displays_main_title():
     at = AppTest.from_file("../app.py", default_timeout=60)

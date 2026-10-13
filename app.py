@@ -242,17 +242,15 @@ Answer:
 # 7. INITIALIZE RAG
 # =========================================================
 
-
-try:
-    query_engine = load_query_engine()
-
-except Exception as e:
+if os.getenv("RAG_TEST_MODE") == "1":
+    # Skip model downloads and external API setup during tests.
     query_engine = None
-
-    st.error(
-        f"Failed to initialize RAG system: {e}"
-    )
-
+else:
+    try:
+        query_engine = load_query_engine()
+    except Exception as e:
+        query_engine = None
+        st.error(f"Failed to initialize RAG system: {e}")
 
 
 # =========================================================

@@ -1,6 +1,8 @@
 import pymupdf
 import os
 
+os.environ["RAG_TEST_MODE"] = "1"
+
 pdf_path = os.path.join(
     "data",
     "01_Weston_2014_Memory_Networks.pdf"

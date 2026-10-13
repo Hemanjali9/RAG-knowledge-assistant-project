@@ -242,17 +242,17 @@ Answer:
 # 7. INITIALIZE RAG
 # =========================================================
 
-try:
 
+try:
     query_engine = load_query_engine()
 
 except Exception as e:
+    query_engine = None
 
     st.error(
         f"Failed to initialize RAG system: {e}"
     )
 
-    st.stop()
 
 
 # =========================================================

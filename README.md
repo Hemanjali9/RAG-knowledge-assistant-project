@@ -1,4 +1,4 @@
-# 🧠 RAG-Powered Team Knowledge Assistant
+# TeamRAG - Smart Document Assistant
 
 > **An intelligent document question-answering system built using Retrieval-Augmented Generation (RAG), allowing users to ask natural-language questions and receive accurate, context-grounded answers from uploaded PDF documents.**
 

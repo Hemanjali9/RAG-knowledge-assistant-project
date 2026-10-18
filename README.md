@@ -255,24 +255,28 @@ If the required information cannot be found in the documents, the system can res
 
 ```text
 RAG_PRO/
-│
+├── .github/
+│   └── workflows/
+│       └── tests.yml
 ├── data/
-│   ├── document1.pdf
-│   ├── document2.pdf
-│   └── ...
-│
-├── chroma_db/
-│
-├── .env
-├── .env.example
-├── .gitignore
+│   └── *.pdf
+├── tests/
+│   ├── test_app.py
+│   ├── test_chunking.py
+│   ├── test_health_api.py
+│   ├── test_rag_offline.py
+│   └── test_streamlit_app.py
+├── app.py
+├── build_index.py
+├── chunking_utils.py
+├── health_api.py
+├── query_rag.py
+├── rag_answer.py
+├── start_app.py
 ├── requirements.txt
-├── main.py
-├── test_pdf.py
 ├── README.md
-└── ...
+└── .gitignore
 ```
-
 > The exact file structure may vary depending on the implementation.
 
 ---
@@ -352,19 +356,44 @@ data/
 
 # ▶️ Run the Application
 
-Start the Streamlit application:
+Start the application and health-check API:
 
 ```bash
-streamlit run main.py
+python start_app.py
 ```
 
-The application will open in your browser.
+The launcher starts both the Streamlit application and FastAPI health-check service.
 
-Typical local URL:
+- **Streamlit application:** http://localhost:8502
+- **Health-check endpoint:** http://127.0.0.1:8000/health
 
-```text
-http://localhost:8501
+To run only the Streamlit application separately:
+
+```bash
+streamlit run app.py
 ```
+
+Streamlit's default port is usually `8501` when available.
+
+Press `Ctrl+C` in the terminal to stop the launcher.
+
+---
+
+# 🧪 Automated Testing
+
+The project uses `pytest` and Streamlit AppTest to validate application behavior.
+
+Run the complete test suite locally:
+
+```bash
+python -m pytest -v
+```
+
+The tests cover application behavior, text chunking, health-check endpoints, and offline RAG functionality using mocks.
+
+GitHub Actions automatically runs the test suite when changes are pushed to configured branches or submitted through pull requests.
+
+The offline tests are designed to run without making real LLM API calls.
 
 ---
 

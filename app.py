@@ -159,8 +159,14 @@ def load_query_engine():
     # CHROMADB
     # -----------------------------------------------------
 
+
+    CHROMA_DB_PATH = os.getenv(
+        "CHROMA_DB_PATH",
+        "./chroma_db"
+    )
+
     client = chromadb.PersistentClient(
-        path="./chroma_db"
+        path=CHROMA_DB_PATH
     )
 
     collection = client.get_or_create_collection(
@@ -236,17 +242,15 @@ Answer:
 # 7. INITIALIZE RAG
 # =========================================================
 
-try:
-
-    query_engine = load_query_engine()
-
-except Exception as e:
-
-    st.error(
-        f"Failed to initialize RAG system: {e}"
-    )
-
-    st.stop()
+if os.getenv("RAG_TEST_MODE") == "1":
+    # Skip model downloads and external API setup during tests.
+    query_engine = None
+else:
+    try:
+        query_engine = load_query_engine()
+    except Exception as e:
+        query_engine = None
+        st.error(f"Failed to initialize RAG system: {e}")
 
 
 # =========================================================

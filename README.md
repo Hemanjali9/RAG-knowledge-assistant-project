@@ -251,28 +251,32 @@ If the required information cannot be found in the documents, the system can res
 
 ---
 
-
 # 📁 Project Structure
 
 ```text
-
 RAG_PRO/
-├── data/                  # Source PDF documents
-├── chroma_db/             # Local vector database (generated)
-├── app.py                 # Streamlit application
-├── build_index.py         # Build the document index
-├── generate_pdf.py        # PDF generation utility
-├── query_rag.py           # Query the knowledge base
-├── rag_answer.py          # RAG answer generation
-├── test_pdf.py            # PDF-related test script
-├── test_pymupdf.py        # PyMuPDF test script
-├── RAG_Capstone_Project_Report.pdf
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+├── data/
+│   └── *.pdf
+├── tests/
+│   ├── test_app.py
+│   ├── test_chunking.py
+│   ├── test_health_api.py
+│   ├── test_rag_offline.py
+│   └── test_streamlit_app.py
+├── app.py
+├── build_index.py
+├── chunking_utils.py
+├── health_api.py
+├── query_rag.py
+├── rag_answer.py
+├── start_app.py
+├── requirements.txt
 ├── README.md
 └── .gitignore
 ```
-
-The `chroma_db/` directory is generated when the vector database is created. The `.venv/`, `.env`, cache directories, and other local development files should not be committed to the repository.
-
 > The exact file structure may vary depending on the implementation.
 
 ---
@@ -352,44 +356,44 @@ data/
 
 # ▶️ Run the Application
 
-Make sure Python and the required project dependencies are installed.
+Start the application and health-check API:
 
-Start the Streamlit application:
+```bash
+python start_app.py
+```
+
+The launcher starts both the Streamlit application and FastAPI health-check service.
+
+- **Streamlit application:** http://localhost:8502
+- **Health-check endpoint:** http://127.0.0.1:8000/health
+
+To run only the Streamlit application separately:
 
 ```bash
 streamlit run app.py
 ```
 
-Streamlit will display a local URL in the terminal, usually:
+Streamlit's default port is usually `8501` when available.
 
-```text
-http://localhost:8501
-```
-
-Open the URL shown in your terminal to interact with the knowledge assistant.
-
-Press `Ctrl+C` in the terminal to stop the application.
+Press `Ctrl+C` in the terminal to stop the launcher.
 
 ---
 
 # 🧪 Automated Testing
 
-The repository includes PDF-related test scripts:
+The project uses `pytest` and Streamlit AppTest to validate application behavior.
 
-- `test_pdf.py`
-- `test_pymupdf.py`
-
-Run an individual script using Python:
+Run the complete test suite locally:
 
 ```bash
-python test_pdf.py
+python -m pytest -v
 ```
 
-```bash
-python test_pymupdf.py
-```
+The tests cover application behavior, text chunking, health-check endpoints, and offline RAG functionality using mocks.
 
-These scripts can help verify PDF-processing behavior in the local environment. Install the required dependencies before running them.
+GitHub Actions automatically runs the test suite when changes are pushed to configured branches or submitted through pull requests.
+
+The offline tests are designed to run without making real LLM API calls.
 
 ---
 
@@ -594,7 +598,3 @@ This architecture provides a strong foundation for building enterprise knowledge
 ## ⭐ If you found this project useful
 
 Give the repository a ⭐ on GitHub!
-
-## Git Workflow Practice
-
-This section is used to practice Git branching and rebasing.

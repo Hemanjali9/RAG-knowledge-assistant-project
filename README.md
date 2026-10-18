@@ -594,3 +594,7 @@ This architecture provides a strong foundation for building enterprise knowledge
 ## ⭐ If you found this project useful
 
 Give the repository a ⭐ on GitHub!
+
+## Git Workflow Practice
+
+This section is used to practice Git branching and rebasing.

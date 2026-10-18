@@ -32,15 +32,3 @@
 
 \- Include tests when adding or modifying functionality.
 
-
-
-\## Release Checklist
-
-
-
-\- Review the pull request before merging.
-
-\- Verify that the application starts successfully.
-
-\- Confirm that required documentation is up to date.
-

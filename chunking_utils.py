@@ -24,4 +24,3 @@ def create_text_splitter(
         chunk_overlap=chunk_overlap,
         tokenizer=tokenizer
     )
-

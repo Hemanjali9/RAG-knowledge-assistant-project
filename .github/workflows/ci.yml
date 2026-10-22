@@ -1,11 +1,11 @@
 
-name: RAG Project Tests
+name: RAG Project CI
 
 on:
   push:
-    branches: [main, phase-1, phase-2]
+    branches: [main]
   pull_request:
-    branches: [main, phase-1, phase-2]
+    branches: [main]
 
 jobs:
   test:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"

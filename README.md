@@ -1,3 +1,5 @@
+[![RAG Project CI](https://github.com/Hemanjali9/RAG-knowledge-assistant-project/actions/workflows/ci.yml/badge.svg)](https://github.com/Hemanjali9/RAG-knowledge-assistant-project/actions/workflows/ci.yml)
+
 # 🧠 RAG-Powered Team Knowledge Assistant
 
 > **An intelligent document question-answering system built using Retrieval-Augmented Generation (RAG), allowing users to ask natural-language questions and receive accurate, context-grounded answers from uploaded PDF documents.**

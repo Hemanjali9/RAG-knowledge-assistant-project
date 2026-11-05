@@ -14,7 +14,7 @@ try:
     api = subprocess.Popen([
         PYTHON, "-m", "uvicorn",
         "health_api:app",
-        "--host", "127.0.0.1",
+        "--host", "0.0.0.0",
         "--port", "8000"
     ], cwd=BASE_DIR)
     processes.append(api)
@@ -23,7 +23,7 @@ try:
     streamlit = subprocess.Popen([
         PYTHON, "-m", "streamlit", "run",
         "app.py",
-        "--server.address", "127.0.0.1",
+        "--server.address", "0.0.0.0",
         "--server.port", "8502"
     ], cwd=BASE_DIR)
     processes.append(streamlit)

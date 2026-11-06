@@ -58,3 +58,45 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/teamrag-knowledge-assistant:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/teamrag-knowledge-assistant:latest
+
+  deploy:
+    name: Deploy and Health Check (Option B)
+    needs: build-push
+    environment: production
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      IMAGE_TAG: ${{ github.sha }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Pull Docker image
+        run: docker compose pull
+
+      - name: Start Docker container
+        run: docker compose up -d
+
+      - name: Health check with retries
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://localhost:8000/health; then
+              echo "Health check passed"
+              exit 0
+            fi
+
+            echo "Waiting for health endpoint... ($i/30)"
+            sleep 5
+          done
+
+          echo "Health check failed"
+          docker compose logs
+          exit 1
+
+      - name: Stop smoke-test container
+        if: always()
+        run: docker compose down
